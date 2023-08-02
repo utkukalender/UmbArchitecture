@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Options;
 using Umb.Application;
 using Umb.Persistance;
 
@@ -12,7 +13,16 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationServices();
 builder.Services.AddPersistenceServices(builder.Configuration);
 
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddSession(x =>
+{
+    x.Cookie.Name = "UmbSession";
+    x.IdleTimeout = TimeSpan.FromMinutes(30);//We set Time here 
+    x.Cookie.HttpOnly= true;
+    x.Cookie.IsEssential = true;
 
+});
+builder.Services.AddDistributedMemoryCache();
 
 var app = builder.Build();
 
@@ -23,6 +33,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseSession();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

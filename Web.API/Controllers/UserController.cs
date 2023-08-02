@@ -11,9 +11,12 @@ namespace Web.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IHttpContextAccessor _httpContext;
 
-        public UserController(IMediator mediator)
+
+        public UserController(IMediator mediator, IHttpContextAccessor httpContext)
         {
+            _httpContext= httpContext;
             _mediator = mediator;
 
         }
@@ -21,6 +24,9 @@ namespace Web.API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<GetUserDto>>> GetAll()
         {
+            _httpContext.HttpContext.Session.SetString("_Name", "bora");
+            var name = HttpContext.Session.GetString("_Name");
+
             var query = new GetAllUserQuery()
             {
 
