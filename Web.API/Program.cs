@@ -1,4 +1,6 @@
+using Core.Core.Logging;
 using Microsoft.Extensions.Options;
+using Serilog;
 using Umb.Application;
 using Umb.Persistance;
 
@@ -22,6 +24,10 @@ builder.Services.AddSession(x =>
     x.Cookie.IsEssential = true;
 
 });
+
+builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
+
+
 builder.Services.AddDistributedMemoryCache();
 
 var app = builder.Build();
@@ -35,6 +41,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseSession();
 app.UseHttpsRedirection();
+app.UseLoggingMiddleware();
+app.UseSerilogRequestLogging();
 
 app.UseAuthorization();
 
