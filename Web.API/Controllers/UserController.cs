@@ -24,8 +24,8 @@ namespace Web.API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<GetUserDto>>> GetAll()
         {
-            throw new Exception("bora Deneme");
-            _logger.LogInformation("BEN CALISTIM");
+            //throw new Exception("bora Deneme");
+            //_logger.LogInformation("BEN CALISTIM");
             _httpContext.HttpContext.Session.SetString("_Name", "bora");
             var name = HttpContext.Session.GetString("_Name");
 

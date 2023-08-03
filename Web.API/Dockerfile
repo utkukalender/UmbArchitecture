@@ -7,7 +7,13 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Web.API/Web.API.csproj", "Web.API/"]
+
+COPY ["Core/Core.csproj", "Web.API/"]
+COPY ["Umb.Applicaton/Umb.Applicaton.csproj", "Umb.Applicaton/"]
+COPY ["Umb.Domain/Umb.Domain.csproj", "Umb.Domain/"]
+COPY ["Umb.Persistance/Umb.Persistance.csproj", "Umb.Persistance/"]
+COPY ["Umb.Infasructure/Umb.Infasructure.csproj", "Umb.Infasructure/"]
+
 RUN dotnet restore "Web.API/Web.API.csproj"
 COPY . .
 WORKDIR "/src/Web.API"
