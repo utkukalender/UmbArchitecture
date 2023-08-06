@@ -18,7 +18,7 @@ namespace Umb.Persistance
                                                 IConfiguration configuration)
         {
             services.AddDbContext<ApplicationContext>(options =>
-                                                     options.UseSqlServer("Server=BORA\\BRCTN; Initial Catalog=UmbDb; Trusted_Connection = True; TrustServerCertificate = True; Encrypt = True; MultipleActiveResultSets = true;"));
+                                                     options.UseSqlServer("Server=UTKU\\SQLEXPRESS; Initial Catalog=UmbDb; Trusted_Connection = True; TrustServerCertificate = True; Encrypt = True; MultipleActiveResultSets = true;"));
             services.AddScoped<IUserRepository, UserRepository>();
 
             return services;

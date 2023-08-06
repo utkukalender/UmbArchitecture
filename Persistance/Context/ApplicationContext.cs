@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -9,7 +11,7 @@ using Umb.Domain;
 
 namespace Umb.Persistance.Context
 {
-    public class ApplicationContext:DbContext
+    public class ApplicationContext:IdentityDbContext<IdentityUser>
     {
         
         public DbSet<User> Users { get; set; }
@@ -26,7 +28,7 @@ namespace Umb.Persistance.Context
         {
             if (!optionsBuilder.IsConfigured)
                 base.OnConfiguring(
-                    optionsBuilder.UseSqlServer("Server=BORA\\BRCTN; Initial Catalog=UmbDb; Trusted_Connection = True; TrustServerCertificate = True; Encrypt = True; MultipleActiveResultSets = true;",
+                    optionsBuilder.UseSqlServer("Server=UTKU\\SQLEXPRESS; Initial Catalog=UmbDb; Trusted_Connection = True; TrustServerCertificate = True; Encrypt = True; MultipleActiveResultSets = true;",
                      options => options.EnableRetryOnFailure()));
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
